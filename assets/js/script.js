@@ -11,6 +11,11 @@ function setCounterText() {
       countEl.textContent = timeLeft;
       timeLeft--; 
 
+      if (timeLeft === 0){
+        countEl.textContent = "0";
+        clearInterval(timeInterval);
+      }
+
     }, 1000);
 }
 
