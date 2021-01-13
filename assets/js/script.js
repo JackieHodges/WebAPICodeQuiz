@@ -8,6 +8,9 @@ var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
+var questionArray = ["This is question one", "this is question two", "this is question 3", "this is question 4", "this is question 5"];
+var questionTwoAnsArray = ["This is the wrong one", "this is the right one", "This is the wrong one", "this is the wrong one", "this is the wrong one"];
+
 
 // this is the timer
 function setCounterText() {
@@ -49,13 +52,18 @@ function askQuestionOne(){
 // this is the second question to be asked
 function askQuestionTwo(){
   // changes h2 text to second question
-  h2El.innerText = "This is question number 2";
+  h2El.innerText = questionArray[1];
 
   // this adds answer buttons into the HTML
   // answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\">Answer 1</button>";
   // answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\">Answer 2</button>";
   // answerThree.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerThree\">Answer 3</button>";
   // answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\">Answer 4</button>";
+
+  answerOne.innerText = questionTwoAnsArray[0];
+  answerTwo.innerText = questionTwoAnsArray[1];
+  answerThree.innerText = questionTwoAnsArray[2];
+  answerFour.innerText = questionTwoAnsArray[3];
 
   // checks answer
   answerOne.addEventListener("click", youAreWrong);
@@ -79,5 +87,5 @@ function youAreWrong (){
 startBtn.addEventListener("click", function() {
     setCounterText();
     askQuestionOne();
-    askQuestionTwo();
+    // askQuestionTwo();
 });
