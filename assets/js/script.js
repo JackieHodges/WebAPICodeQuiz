@@ -1,4 +1,5 @@
 var timeLeft = 75;
+var score = 0;
 var countEl = document.querySelector("#count");
 var startBtn = document.querySelector(".start-btn");
 var h1El = document.querySelector("h1");
@@ -75,12 +76,16 @@ function askQuestionTwo(){
 // function for when correct answer is clicked
 function youAreCorrect (){
   console.log("Correct");
+  score = timeLeft;
+  console.log("Current score: " + score);
 }
 
 // function for when wrong answer is clicked
 function youAreWrong (){
   console.log("Wrong");
   timeLeft = timeLeft-10;
+  score = timeLeft;
+  console.log("Current score: " + score);
 }
 
 // when the start quiz button is clicked, the program will run
