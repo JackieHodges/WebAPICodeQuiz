@@ -34,10 +34,10 @@ function askQuestionOne(){
   // changes h2 text to first question
   h2El.innerText = "This is question number one";
   // this adds answer options HTML
-  answerOne.innerHTML = "<h3>This is a question option1</h3>"
-  answerTwo.innerHTML = "<h3>This is a question option2</h3>"
-  answerThree.innerHTML = "<h3>This is a question option3</h3>"
-  answerFour.innerHTML = "<h3>This is a question option4</h3>"
+  answerOne.innerHTML = "<h3>This is a question option1</h3>";
+  answerTwo.innerHTML = "<h3>This is a question option2</h3>";
+  answerThree.innerHTML = "<h3>This is a question option3</h3>";
+  answerFour.innerHTML = "<h3>This is a question option4</h3>";
 }
 
 startBtn.addEventListener("click", function() {
