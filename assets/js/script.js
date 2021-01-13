@@ -32,6 +32,7 @@ function askQuestionOne(){
   startBtn.outerHTML = "";
   // changes h2 text to first question
   h2El.innerText = "This is question number one";
+
   // this adds answer buttons into the HTML
   answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\">Answer 1</button>";
   answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\">Answer 2</button>";
@@ -45,12 +46,15 @@ function askQuestionOne(){
   answerFour.addEventListener("click", youAreWrong);
 }
 
+// function for when correct answer is clicked
 function youAreCorrect (){
   console.log("Correct");
 }
 
+// function for when wrong answer is clicked
 function youAreWrong (){
   console.log("Wrong");
+  timeLeft = timeLeft-10;
 }
 
 // when the start quiz button is clicked, the program will run
