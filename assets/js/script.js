@@ -1,11 +1,13 @@
 // this is the timer
-var count = 75;
+var timeLeft = 75;
 
 var countEl = document.querySelector("#count");
 var startBtn = document.querySelector(".start-btn");
+var h1El = document.querySelector("h1");
+var h2El = document.querySelector("h2");
 
 function setCounterText() {
-    var timeLeft = 75;
+    // var timeLeft = 75;
   
     var timeInterval = setInterval(function() {
       countEl.textContent = timeLeft;
@@ -19,6 +21,18 @@ function setCounterText() {
     }, 1000);
 }
 
+function askQuestionOne(){
+  // removes h1
+  h1El.outerHTML = "";
+  // removes button
+  startBtn.outerHTML = "";
+  // changes h2 to first question
+  h2El.innerHTML = "This is question number one";
+
+
+}
+
 startBtn.addEventListener("click", function() {
     setCounterText();
+    askQuestionOne();
 });
