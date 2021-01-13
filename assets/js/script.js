@@ -46,6 +46,24 @@ function askQuestionOne(){
   answerFour.addEventListener("click", youAreWrong);
 }
 
+// this is the second question to be asked
+function askQuestionTwo(){
+  // changes h2 text to second question
+  h2El.innerText = "This is question number 2";
+
+  // this adds answer buttons into the HTML
+  // answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\">Answer 1</button>";
+  // answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\">Answer 2</button>";
+  // answerThree.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerThree\">Answer 3</button>";
+  // answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\">Answer 4</button>";
+
+  // checks answer
+  answerOne.addEventListener("click", youAreWrong);
+  answerTwo.addEventListener("click", youAreCorrect);
+  answerThree.addEventListener("click", youAreWrong);
+  answerFour.addEventListener("click", youAreWrong);
+}
+
 // function for when correct answer is clicked
 function youAreCorrect (){
   console.log("Correct");
@@ -61,4 +79,5 @@ function youAreWrong (){
 startBtn.addEventListener("click", function() {
     setCounterText();
     askQuestionOne();
+    askQuestionTwo();
 });
