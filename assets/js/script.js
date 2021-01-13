@@ -39,11 +39,18 @@ function askQuestionOne(){
   answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\">Answer 4</button>";
 
   // checks answer
-  if (answerOne.clicked === true){
-    console.log("You're correct");
-  } else {
-    console.log("You're incorrect");
-  }
+  answerOne.addEventListener("click", youAreCorrect);
+  answerTwo.addEventListener("click", youAreWrong);
+  answerThree.addEventListener("click", youAreWrong);
+  answerFour.addEventListener("click", youAreWrong);
+}
+
+function youAreCorrect (){
+  console.log("Correct");
+}
+
+function youAreWrong (){
+  console.log("Wrong");
 }
 
 // when the start quiz button is clicked, the program will run
