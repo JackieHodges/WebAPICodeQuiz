@@ -7,6 +7,7 @@ var startBtn = document.querySelector(".start-btn");
 var h1El = document.querySelector("h1");
 var h2El = document.querySelector("h2");
 var containerEl = document.querySelector("container");
+var answersEl = document.querySelector("#answer-options");
 var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
@@ -40,16 +41,26 @@ function askQuestionOne(){
   h2El.innerText = "This is question number one";
 
   // this adds answer buttons into the HTML
-  answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\">Answer 1</button>";
-  answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\">Answer 2</button>";
-  answerThree.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerThree\">Answer 3</button>";
-  answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\">Answer 4</button>";
+  answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\" value=\"correct\">Answer 1</button>";
+  answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\" value=\"incorrect\">Answer 2</button>";
+  answerThree.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerThree\" value=\"incorrect\">Answer 3</button>";
+  answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\" value=\"incorrect\">Answer 4</button>";
 
-  // checks answer
-  answerOne.addEventListener("click", youAreCorrect);
-  answerTwo.addEventListener("click", youAreWrong);
-  answerThree.addEventListener("click", youAreWrong);
-  answerFour.addEventListener("click", youAreWrong);
+
+
+  // // checks answer
+  // answerOne.addEventListener("click", youAreCorrect);
+  // answerTwo.addEventListener("click", youAreWrong);
+  // answerThree.addEventListener("click", youAreWrong);
+  // answerFour.addEventListener("click", youAreWrong);
+}
+
+function checkAnswer(){
+  answersEl.addEventListener("click", function(){
+  const humanPick = answersEl.value;
+  console.log(answersEl.value);
+  });
+    
 }
 
 // this is the second question to be asked
@@ -96,5 +107,6 @@ function youAreWrong (){
 startBtn.addEventListener("click", function() {
     setCounterText();
     askQuestionOne();
+    checkAnswer();
     // askQuestionTwo();
 });
