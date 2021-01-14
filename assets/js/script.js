@@ -76,7 +76,7 @@ function pageSetup(){
 
 // this is the first question to be asked
 function askQuestion(){
-  if(questionNumber<4){
+  if(questionNumber<=3){
   console.log("This is question number " + questionNumber);
   // changes h2 text to first question
   h2El.textContent = questionsArray[questionNumber].question;
@@ -129,6 +129,7 @@ function checkAnswer(){
       youAreWrong();
     }
   });
+
 }
 
 // function for when correct answer is clicked
