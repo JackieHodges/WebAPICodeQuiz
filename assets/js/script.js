@@ -61,21 +61,24 @@ function setCounterText() {
     }, 1000);
 }
 
-// this is the first question to be asked
-function askQuestion(){
-  console.log("This is question number " + questionNumber + 1);
+function pageSetup(){
   // removes h1
   h1El.outerHTML = "";
   // removes button
   startBtn.outerHTML = "";
-  // changes h2 text to first question
-  h2El.innerText = questionsArray[questionNumber].question;
 
   // this adds answer buttons into the HTML
   answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne' value='correct'></button>";
   answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo' value='incorrect'></button>";
   answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree' value='incorrect'></button>";
   answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour' value='incorrect'></button>";
+}
+
+// this is the first question to be asked
+function askQuestion(){
+  console.log("This is question number " + questionNumber + 1);
+  // changes h2 text to first question
+  h2El.innerText = questionsArray[questionNumber].question;
 
   // this adds question text from array into button htmls
   document.querySelector(".btn-answerOne").innerText = questionsArray[questionNumber].choices[0];
@@ -143,5 +146,6 @@ function youAreWrong (){
 // when the start quiz button is clicked, the program will run
 startBtn.addEventListener("click", function() {
     setCounterText();
+    pageSetup();
     askQuestion();
 });
