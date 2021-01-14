@@ -14,12 +14,42 @@ var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
 var questionArray = ["This is question one", "this is question two", "this is question 3", "this is question 4", "this is question 5"];
 var questionTwoAnsArray = ["This is the wrong one", "this is the right one", "This is the wrong one", "this is the wrong one", "this is the wrong one"];
-
+var timeInterval;
+var questionNumber = 0;
+var questionsArray = [
+  {
+    //this question one is index 0, questionsArray[0].question;
+    question: "This is question 1",
+    //questionsArray[0].choices[0]
+    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    answer: "this is answer 1"
+  },
+  {
+    //this question 2 is index 1
+    question: "This is question 2",
+    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    answer: ""
+  },
+  {
+    //this question 3 is index 2
+    question: "This is question 3",
+    //questionsArray[0].choices[0]
+    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    answer: ""
+  },
+  {
+    //this question 4 is index 3
+    question: "This is question 4",
+    //questionsArray[0].choices[0]
+    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    answer: ""
+  }
+]
 
 // this is the timer
 function setCounterText() {
   
-    var timeInterval = setInterval(function() {
+    timeInterval = setInterval(function() {
       countEl.textContent = timeLeft;
       timeLeft--; 
 
@@ -32,58 +62,65 @@ function setCounterText() {
 }
 
 // this is the first question to be asked
-function askQuestionOne(){
+function askQuestion(){
+  console.log("This is question number " + questionNumber + 1);
   // removes h1
   h1El.outerHTML = "";
   // removes button
   startBtn.outerHTML = "";
   // changes h2 text to first question
-  h2El.innerText = "This is question number one";
+  h2El.innerText = questionsArray[questionNumber].question;
 
   // this adds answer buttons into the HTML
-  answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\" value=\"correct\">Answer 1</button>";
-  answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\" value=\"incorrect\">Answer 2</button>";
-  answerThree.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerThree\" value=\"incorrect\">Answer 3</button>";
-  answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\" value=\"incorrect\">Answer 4</button>";
+  answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne' value='correct'></button>";
+  answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo' value='incorrect'></button>";
+  answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree' value='incorrect'></button>";
+  answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour' value='incorrect'></button>";
 
+  // this adds question text from array into button htmls
+  document.querySelector(".btn-answerOne").innerText = questionsArray[questionNumber].choices[0];
+  document.querySelector(".btn-answerTwo").innerText = questionsArray[questionNumber].choices[1];
+  document.querySelector(".btn-answerThree").innerText = questionsArray[questionNumber].choices[2];
+  document.querySelector(".btn-answerFour").innerText = questionsArray[questionNumber].choices[3];
 
-
-  // // checks answer
-  // answerOne.addEventListener("click", youAreCorrect);
-  // answerTwo.addEventListener("click", youAreWrong);
-  // answerThree.addEventListener("click", youAreWrong);
-  // answerFour.addEventListener("click", youAreWrong);
+  checkAnswer();
 }
 
 function checkAnswer(){
-  answersEl.addEventListener("click", function(){
-  const humanPick = answersEl.value;
-  console.log(answersEl.value);
+  // listener for each button
+  answerOne.addEventListener("click", function(){
+    if (document.querySelector(".btn-answerOne").innerText == questionsArray[0].answer){
+      console.log("correct");
+    } else {
+      console.log("incorrect");
+    }
+  });
+
+  answerTwo.addEventListener("click", function(){
+    if (document.querySelector(".btn-answerTwo").innerText == questionsArray[0].answer){
+      console.log("correct");
+    } else {
+      console.log("incorrect");
+    }
+  });
+
+  answerThree.addEventListener("click", function(){
+    if (document.querySelector(".btn-answerThree").innerText == questionsArray[0].answer){
+      console.log("correct");
+    } else {
+      console.log("incorrect");
+    }
+  });
+
+  answerFour.addEventListener("click", function(){
+    if (document.querySelector(".btn-answerFour").innerText == questionsArray[0].answer){
+      console.log("correct");
+    } else {
+      console.log("incorrect");
+    }
   });
     
-}
-
-// this is the second question to be asked
-function askQuestionTwo(){
-  // changes h2 text to second question
-  h2El.innerText = questionArray[1];
-
-  // this adds answer buttons into the HTML
-  // answerOne.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerOne\">Answer 1</button>";
-  // answerTwo.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerTwo\">Answer 2</button>";
-  // answerThree.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerThree\">Answer 3</button>";
-  // answerFour.innerHTML = "<button type=\"button\" class=\"btn btn-secondary btn-answerFour\">Answer 4</button>";
-
-  answerOne.innerText = questionTwoAnsArray[0];
-  answerTwo.innerText = questionTwoAnsArray[1];
-  answerThree.innerText = questionTwoAnsArray[2];
-  answerFour.innerText = questionTwoAnsArray[3];
-
-  // checks answer
-  answerOne.addEventListener("click", youAreWrong);
-  answerTwo.addEventListener("click", youAreCorrect);
-  answerThree.addEventListener("click", youAreWrong);
-  answerFour.addEventListener("click", youAreWrong);
+  questionNumber++;
 }
 
 // function for when correct answer is clicked
@@ -106,7 +143,5 @@ function youAreWrong (){
 // when the start quiz button is clicked, the program will run
 startBtn.addEventListener("click", function() {
     setCounterText();
-    askQuestionOne();
-    checkAnswer();
-    // askQuestionTwo();
+    askQuestion();
 });
