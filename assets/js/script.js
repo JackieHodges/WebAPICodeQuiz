@@ -1,7 +1,5 @@
 var timeLeft = 75;
 var score = 0;
-var correct = true;
-var wrong = false;
 var countEl = document.querySelector("#count");
 var startBtn = document.querySelector(".start-btn");
 var h1El = document.querySelector("h1");
@@ -12,8 +10,6 @@ var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
-var questionArray = ["This is question one", "this is question two", "this is question 3", "this is question 4", "this is question 5"];
-var questionTwoAnsArray = ["This is the wrong one", "this is the right one", "This is the wrong one", "this is the wrong one", "this is the wrong one"];
 var timeInterval;
 var questionNumber = 0;
 var questionsArray = [
