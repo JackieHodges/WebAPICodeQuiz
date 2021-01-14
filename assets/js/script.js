@@ -28,21 +28,21 @@ var questionsArray = [
     //this question 2 is index 1
     question: "This is question 2",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: ""
+    answer: "this is answer 2"
   },
   {
     //this question 3 is index 2
     question: "This is question 3",
     //questionsArray[0].choices[0]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: ""
+    answer: "this is answer 3"
   },
   {
     //this question 4 is index 3
     question: "This is question 4",
     //questionsArray[0].choices[0]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: ""
+    answer: "this is answer 4"
   }
 ]
 
@@ -76,54 +76,51 @@ function pageSetup(){
 
 // this is the first question to be asked
 function askQuestion(){
-  console.log("This is question number " + questionNumber + 1);
+  console.log("This is question number " + questionNumber);
   // changes h2 text to first question
-  h2El.innerText = questionsArray[questionNumber].question;
+  h2El.textContent = questionsArray[questionNumber].question;
 
   // this adds question text from array into button htmls
-  document.querySelector(".btn-answerOne").innerText = questionsArray[questionNumber].choices[0];
-  document.querySelector(".btn-answerTwo").innerText = questionsArray[questionNumber].choices[1];
-  document.querySelector(".btn-answerThree").innerText = questionsArray[questionNumber].choices[2];
-  document.querySelector(".btn-answerFour").innerText = questionsArray[questionNumber].choices[3];
+  document.querySelector(".btn-answerOne").textContent = questionsArray[questionNumber].choices[0];
+  document.querySelector(".btn-answerTwo").textContent = questionsArray[questionNumber].choices[1];
+  document.querySelector(".btn-answerThree").textContent = questionsArray[questionNumber].choices[2];
+  document.querySelector(".btn-answerFour").textContent = questionsArray[questionNumber].choices[3];
 
-  checkAnswer();
 }
 
 function checkAnswer(){
   // listener for each button
   answerOne.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerOne").innerText == questionsArray[0].answer){
-      console.log("correct");
+    if (document.querySelector(".btn-answerOne").textContent == questionsArray[questionNumber].answer){
+      youAreCorrect();
     } else {
-      console.log("incorrect");
+      youAreWrong;
     }
   });
 
   answerTwo.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerTwo").innerText == questionsArray[0].answer){
-      console.log("correct");
+    if (document.querySelector(".btn-answerTwo").textContent == questionsArray[questionNumber].answer){
+      youAreCorrect();
     } else {
-      console.log("incorrect");
+      youAreWrong;
     }
   });
 
   answerThree.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerThree").innerText == questionsArray[0].answer){
-      console.log("correct");
+    if (document.querySelector(".btn-answerThree").textContent == questionsArray[questionNumber].answer){
+      youAreCorrect();
     } else {
-      console.log("incorrect");
+      youAreWrong;
     }
   });
 
   answerFour.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerFour").innerText == questionsArray[0].answer){
-      console.log("correct");
+    if (document.querySelector(".btn-answerFour").textContent == questionsArray[questionNumber].answer){
+      youAreCorrect();
     } else {
-      console.log("incorrect");
+      youAreWrong;
     }
   });
-    
-  questionNumber++;
 }
 
 // function for when correct answer is clicked
@@ -131,7 +128,8 @@ function youAreCorrect (){
   console.log("Correct");
   score = timeLeft;
   console.log("Current score: " + score);
-  return true;
+  questionNumber++;
+  askQuestion();
 }
 
 // function for when wrong answer is clicked
@@ -140,7 +138,8 @@ function youAreWrong (){
   timeLeft = timeLeft-10;
   score = timeLeft;
   console.log("Current score: " + score);
-  return false;
+  questionNumber++;
+  askQuestion();
 }
 
 // when the start quiz button is clicked, the program will run
@@ -148,4 +147,6 @@ startBtn.addEventListener("click", function() {
     setCounterText();
     pageSetup();
     askQuestion();
+    checkAnswer();
+    // askQuestion();
 });
