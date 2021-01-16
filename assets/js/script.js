@@ -76,7 +76,6 @@ function pageSetup(){
 
 // this is the first question to be asked
 function askQuestion(){
-  if(questionNumber < 4){
   console.log("This is question number " + questionNumber);
   // changes h2 text to first question
   h2El.textContent = questionsArray[questionNumber].question;
@@ -88,17 +87,12 @@ function askQuestion(){
   answerFourButton.textContent = questionsArray[questionNumber].choices[3];
   
   checkAnswer();
-
-  } else {
-    clearInterval(timeInterval);
-    score = timeLeft;
-    console.log("congrats, you had "+ score + " points!");
-  }
+  
 }
 
 function checkAnswer(){
   // listener for each button
-  answerOne.addEventListener("click", function(){
+  answerOneButton.addEventListener("click", function(){
     if (document.querySelector(".btn-answerOne").textContent == questionsArray[questionNumber].answer){
       youAreCorrect();
     } else {
@@ -106,7 +100,7 @@ function checkAnswer(){
     }
   });
 
-  answerTwo.addEventListener("click", function(){
+  answerTwoButton.addEventListener("click", function(){
     if (document.querySelector(".btn-answerTwo").textContent == questionsArray[questionNumber].answer){
       youAreCorrect();
     } else {
@@ -114,7 +108,7 @@ function checkAnswer(){
     }
   });
 
-  answerThree.addEventListener("click", function(){
+  answerThreeButton.addEventListener("click", function(){
     if (document.querySelector(".btn-answerThree").textContent == questionsArray[questionNumber].answer){
       youAreCorrect();
     } else {
@@ -122,7 +116,7 @@ function checkAnswer(){
     }
   });
 
-  answerFour.addEventListener("click", function(){
+  answerFourButton.addEventListener("click", function(){
     if (document.querySelector(".btn-answerFour").textContent == questionsArray[questionNumber].answer){
       youAreCorrect();
     } else {
@@ -135,20 +129,30 @@ function checkAnswer(){
 // function for when correct answer is clicked
 function youAreCorrect (){
   console.log("Correct");
-  score = timeLeft;
-  console.log("Current score: " + score);
   questionNumber++;
-  askQuestion();
+  if (questionNumber < questionsArray.length){
+    askQuestion();} 
+  else{  
+    containerEl.outerHTML="";
+    clearInterval(timeInterval);
+    score = timeLeft;
+    console.log("congrats, you had "+ score + " points!"); 
+  }
 }
 
 // function for when wrong answer is clicked
 function youAreWrong (){
   console.log("Wrong");
   timeLeft = timeLeft-10;
-  score = timeLeft;
-  console.log("Current score: " + score);
   questionNumber++;
-  askQuestion();
+  if (questionNumber < questionsArray.length){
+    askQuestion();} 
+  else{  
+    containerEl.outerHTML="";
+    clearInterval(timeInterval);
+    score = timeLeft;
+    console.log("congrats, you had "+ score + " points!"); 
+  }
 }
 
 // when the start quiz button is clicked, the program will run
