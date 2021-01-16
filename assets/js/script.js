@@ -29,14 +29,12 @@ var questionsArray = [
   {
     //this question 3 is index 2
     question: "This is question 3",
-    //questionsArray[0].choices[0]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
     answer: "this is answer 3"
   },
   {
     //this question 4 is index 3
     question: "This is question 4",
-    //questionsArray[0].choices[0]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
     answer: "this is answer 4"
   }
@@ -64,24 +62,30 @@ function pageSetup(){
   startBtn.outerHTML = "";
 
   // this adds answer buttons into the HTML
-  answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne' value='correct'></button>";
-  answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo' value='incorrect'></button>";
-  answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree' value='incorrect'></button>";
-  answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour' value='incorrect'></button>";
+  answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne'></button>";
+  answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo'></button>";
+  answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree'></button>";
+  answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour'></button>";
+
+  //because the buttons will now be created, we can name them here
+  answerOneButton = document.querySelector(".btn-answerOne");
+  answerTwoButton = document.querySelector(".btn-answerTwo");
+  answerThreeButton =  document.querySelector(".btn-answerThree");
+  answerFourButton = document.querySelector(".btn-answerFour");
 }
 
 // this is the first question to be asked
 function askQuestion(){
-  if(questionNumber<=3){
+  if(questionNumber < 4){
   console.log("This is question number " + questionNumber);
   // changes h2 text to first question
   h2El.textContent = questionsArray[questionNumber].question;
 
   // this adds question text from array into button htmls
-  document.querySelector(".btn-answerOne").textContent = questionsArray[questionNumber].choices[0];
-  document.querySelector(".btn-answerTwo").textContent = questionsArray[questionNumber].choices[1];
-  document.querySelector(".btn-answerThree").textContent = questionsArray[questionNumber].choices[2];
-  document.querySelector(".btn-answerFour").textContent = questionsArray[questionNumber].choices[3];
+  answerOneButton.textContent = questionsArray[questionNumber].choices[0];
+  answerTwoButton.textContent = questionsArray[questionNumber].choices[1];
+  answerThreeButton.textContent = questionsArray[questionNumber].choices[2];
+  answerFourButton.textContent = questionsArray[questionNumber].choices[3];
   
   checkAnswer();
 
