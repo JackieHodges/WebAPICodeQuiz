@@ -77,6 +77,9 @@ function pageSetup(){
 // this is the first question to be asked
 function askQuestion(){
   console.log("This is question number " + questionNumber);
+
+  if (questionNumber < questionsArray.length){
+    
   // changes h2 text to first question
   h2El.textContent = questionsArray[questionNumber].question;
 
@@ -87,6 +90,14 @@ function askQuestion(){
   answerFourButton.textContent = questionsArray[questionNumber].choices[3];
   
   checkAnswer();
+  
+  } 
+  else {  
+  containerEl.outerHTML="";
+  clearInterval(timeInterval);
+  score = timeLeft;
+  console.log("congrats, you had "+ score + " points!"); 
+  }
   
 }
 
@@ -130,14 +141,7 @@ function checkAnswer(){
 function youAreCorrect (){
   console.log("Correct");
   questionNumber++;
-  if (questionNumber < questionsArray.length){
-    askQuestion();} 
-  else{  
-    containerEl.outerHTML="";
-    clearInterval(timeInterval);
-    score = timeLeft;
-    console.log("congrats, you had "+ score + " points!"); 
-  }
+  askQuestion();
 }
 
 // function for when wrong answer is clicked
@@ -145,14 +149,7 @@ function youAreWrong (){
   console.log("Wrong");
   timeLeft = timeLeft-10;
   questionNumber++;
-  if (questionNumber < questionsArray.length){
-    askQuestion();} 
-  else{  
-    containerEl.outerHTML="";
-    clearInterval(timeInterval);
-    score = timeLeft;
-    console.log("congrats, you had "+ score + " points!"); 
-  }
+  askQuestion();
 }
 
 // when the start quiz button is clicked, the program will run
