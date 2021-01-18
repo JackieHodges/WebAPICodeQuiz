@@ -11,7 +11,8 @@ var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
 var timeInterval;
-var questionNumber = 0;
+var questionNumber = 1;
+var questionIndex = 0;
 var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
@@ -62,10 +63,10 @@ function pageSetup(){
   startBtn.outerHTML = "";
 
   // this adds answer buttons into the HTML
-  answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne'></button>";
-  answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo'></button>";
-  answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree'></button>";
-  answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour'></button>";
+  answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne incorrect'></button>";
+  answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo incorrect'></button>";
+  answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree incorrect'></button>";
+  answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour incorrect'></button>";
 
   //because the buttons will now be created, we can name them here
   answerOneButton = document.querySelector(".btn-answerOne");
@@ -80,60 +81,58 @@ function askQuestion(){
 
   if (questionNumber < questionsArray.length){
     
-  // changes h2 text to first question
-  h2El.textContent = questionsArray[questionNumber].question;
+    // changes h2 text to first question
+    h2El.textContent = questionsArray[questionIndex].question;
 
-  // this adds question text from array into button htmls
-  answerOneButton.textContent = questionsArray[questionNumber].choices[0];
-  answerTwoButton.textContent = questionsArray[questionNumber].choices[1];
-  answerThreeButton.textContent = questionsArray[questionNumber].choices[2];
-  answerFourButton.textContent = questionsArray[questionNumber].choices[3];
-  
-  checkAnswer();
-  
-  } 
-  else {  
-  containerEl.outerHTML="";
-  clearInterval(timeInterval);
-  score = timeLeft;
-  console.log("congrats, you had "+ score + " points!"); 
+    // this adds question text from array into button htmls
+    answerOneButton.textContent = questionsArray[questionIndex].choices[0];
+    answerTwoButton.textContent = questionsArray[questionIndex].choices[1];
+    answerThreeButton.textContent = questionsArray[questionIndex].choices[2];
+    answerFourButton.textContent = questionsArray[questionIndex].choices[3];
+    
+    checkAnswer();
+
+  } else {
+    containerEl.outerHTML="";
+    clearInterval(timeInterval);
+    score = timeLeft;
+    console.log("congrats, you had "+ score + " points!"); 
   }
-  
 }
 
 function checkAnswer(){
   // listener for each button
-  answerOneButton.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerOne").textContent == questionsArray[questionNumber].answer){
+  answersEl.addEventListener("click", function(){
+    if (this.textContent == questionsArray[questionIndex].answer){
       youAreCorrect();
     } else {
       youAreWrong();
     }
   });
 
-  answerTwoButton.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerTwo").textContent == questionsArray[questionNumber].answer){
-      youAreCorrect();
-    } else {
-      youAreWrong();
-    }
-  });
+  // answerTwoButton.addEventListener("click", function(){
+  //   if (document.querySelector(".btn-answerTwo").textContent == questionsArray[questionIndex].answer){
+  //     youAreCorrect();
+  //   } else {
+  //     youAreWrong();
+  //   }
+  // });
 
-  answerThreeButton.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerThree").textContent == questionsArray[questionNumber].answer){
-      youAreCorrect();
-    } else {
-      youAreWrong();
-    }
-  });
+  // answerThreeButton.addEventListener("click", function(){
+  //   if (document.querySelector(".btn-answerThree").textContent == questionsArray[questionIndex].answer){
+  //     youAreCorrect();
+  //   } else {
+  //     youAreWrong();
+  //   }
+  // });
 
-  answerFourButton.addEventListener("click", function(){
-    if (document.querySelector(".btn-answerFour").textContent == questionsArray[questionNumber].answer){
-      youAreCorrect();
-    } else {
-      youAreWrong();
-    }
-  });
+  // answerFourButton.addEventListener("click", function(){
+  //   if (document.querySelector(".btn-answerFour").textContent == questionsArray[questionIndex].answer){
+  //     youAreCorrect();
+  //   } else {
+  //     youAreWrong();
+  //   }
+  // });
 
 }
 
@@ -141,6 +140,7 @@ function checkAnswer(){
 function youAreCorrect (){
   console.log("Correct");
   questionNumber++;
+  questionIndex++;
   askQuestion();
 }
 
@@ -149,6 +149,7 @@ function youAreWrong (){
   console.log("Wrong");
   timeLeft = timeLeft-10;
   questionNumber++;
+  questionIndex++;
   askQuestion();
 }
 
