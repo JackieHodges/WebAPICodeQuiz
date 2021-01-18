@@ -11,7 +11,7 @@ var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
 var timeInterval;
-var questionNumber = 0;
+var questionIndex = 0;
 var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
@@ -59,18 +59,33 @@ function setCounterText() {
 function pageSetup(){
     // hides welcome html and start button
     h1El.hidden = true;
-    // h2El.hidden = true;
     startBtn.hidden = true;
+
+    // sets question
+    h2El.textContent = questionsArray[questionIndex].question;   
+
     // this adds answer buttons into the HTML
     for(var i = 0; i < questionsArray.length; i++){
-      // creates question and answer buttons
-      h2El.textContent = questionsArray[i].question;      
+      // creates answer buttons
       newAnswerChoices = document.createElement("button");
-      newAnswerChoices.setAttribute("class","btn btn-secondary incorrect");
+      newAnswerChoices.setAttribute("class","btn btn-secondary");
+      newAnswerChoices.setAttribute("value", "incorrect");
       newAnswerChoices.textContent= questionsArray[i].choices[i];
       containerEl.append(newAnswerChoices);
     }
 
+    checkAnswer();
+
+  }
+
+  function checkAnswer(){
+    containerEl.addEventListener("click", function(){
+      if(this.value === "correct"){
+        console.log("correct");
+      } else {
+        console.log("incorrect");
+      }
+    })
   }
 
   startBtn.addEventListener("click", function(){
