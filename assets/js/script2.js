@@ -68,6 +68,7 @@ function pageSetup(){
     for(var i = 0; i < questionsArray.length; i++){
       // creates answer buttons
       newAnswerChoices = document.createElement("button");
+      newLine = document.createElement("br");
       newAnswerChoices.setAttribute("class","btn btn-secondary");
       newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
       newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
@@ -95,16 +96,21 @@ function pageSetup(){
   }
 
   function checkAnswer(){
-    containerEl.addEventListener("click", function(){
-      if(this.value === "correct"){
-        console.log("correct");
-        questionIndex++;
-        nextQuestion();
-      } else {
-        console.log("incorrect");
-        questionIndex++;
-        nextQuestion();
-      }
+    var allButtons = document.querySelectorAll(".btn-secondary");
+    allButtons.forEach(function(allButtons){
+      allButtons.addEventListener("click", function(){
+        // var humanGuess = this.value;
+        // console.log(humanGuess);
+        if(this.value === "correct"){
+          console.log("correct");
+          questionIndex++;
+          nextQuestion();
+        } else {
+          console.log("incorrect");
+          questionIndex++;
+          nextQuestion();
+        }
+      })
     })
   }
 
