@@ -24,19 +24,19 @@ var questionsArray = [
     //this question 2 is index 1
     question: "This is question 2",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    values: ["correct", "incorrect", "incorrect", "incorrect"]
+    values: ["incorrect", "correct", "incorrect", "incorrect"]
   },
   {
     //this question 3 is index 2
     question: "This is question 3",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    values: ["correct", "incorrect", "incorrect", "incorrect"]
+    values: ["incorrect", "incorrect", "correct", "incorrect"]
   },
   {
     //this question 4 is index 3
     question: "This is question 4",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    values: ["correct", "incorrect", "incorrect", "incorrect"]
+    values: ["incorrect", "incorrect", "incorrect", "correct"]
   }
 ]
 
@@ -69,8 +69,8 @@ function pageSetup(){
       // creates answer buttons
       newAnswerChoices = document.createElement("button");
       newAnswerChoices.setAttribute("class","btn btn-secondary");
-      newAnswerChoices.setAttribute("value", questionsArray[i].values[i]);
-      newAnswerChoices.textContent= questionsArray[i].choices[i];
+      newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
+      newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
       containerEl.append(newAnswerChoices);
     }
 
@@ -78,12 +78,34 @@ function pageSetup(){
 
   }
 
+  function nextQuestion(){
+    if (questionIndex < 4){
+      console.log("the next question index is ", questionIndex);
+      // sets new question
+      h2El.textContent = questionsArray[questionIndex].question;  
+      // for(var i = 0; i < questionsArray.length; i++){
+      // newAnswerChoices.setAttribute("class","btn btn-secondary");
+      // newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
+      // newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
+      // containerEl.append(newAnswerChoices);
+      // }
+    } else {
+      clearInterval(timeInterval);
+      h2El.textContent = "Game Over";
+      containerEl.hidden= true;
+    }
+  }
+
   function checkAnswer(){
     containerEl.addEventListener("click", function(){
       if(this.value === "correct"){
         console.log("correct");
+        questionIndex++;
+        nextQuestion();
       } else {
         console.log("incorrect");
+        questionIndex++;
+        nextQuestion();
       }
     })
   }
