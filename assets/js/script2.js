@@ -57,18 +57,23 @@ function setCounterText() {
 
 // this sets up the page to be created 
 function pageSetup(){
-    // removes h1
-    h1El.outerHTML = "";
-    // removes button
-    startBtn.outerHTML = "";
-
+    // hides welcome html and start button
+    h1El.hidden = true;
+    // h2El.hidden = true;
+    startBtn.hidden = true;
     // this adds answer buttons into the HTML
     for(var i = 0; i < questionsArray.length; i++){
-    
-    answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne incorrect'></button>";
-    answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo incorrect'></button>";
-    answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree incorrect'></button>";
-    answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour incorrect'></button>";
+      // creates question and answer buttons
+      h2El.textContent = questionsArray[i].question;      
+      newAnswerChoices = document.createElement("button");
+      newAnswerChoices.setAttribute("class","btn btn-secondary incorrect");
+      newAnswerChoices.textContent= questionsArray[i].choices[i];
+      containerEl.append(newAnswerChoices);
     }
 
   }
+
+  startBtn.addEventListener("click", function(){
+    setCounterText();
+    pageSetup();
+  })
