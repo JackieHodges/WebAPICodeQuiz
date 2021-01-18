@@ -92,6 +92,9 @@ function pageSetup(){
       clearInterval(timeInterval);
       h2El.textContent = "Game Over";
       containerEl.hidden= true;
+      score = timeLeft;
+      countEl.textContent = timeLeft;
+      console.log("Your score is ", score);
     }
   }
 
@@ -107,6 +110,7 @@ function pageSetup(){
           nextQuestion();
         } else {
           console.log("incorrect");
+          timeLeft=timeLeft-10;
           questionIndex++;
           nextQuestion();
         }
