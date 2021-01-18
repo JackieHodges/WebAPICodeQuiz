@@ -83,12 +83,10 @@ function pageSetup(){
       console.log("the next question index is ", questionIndex);
       // sets new question
       h2El.textContent = questionsArray[questionIndex].question;  
-      // for(var i = 0; i < questionsArray.length; i++){
-      // newAnswerChoices.setAttribute("class","btn btn-secondary");
-      // newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
-      // newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
-      // containerEl.append(newAnswerChoices);
-      // }
+      for(var i = 0; i < questionsArray.length; i++){
+        // changes values for new question
+        document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
+      }
     } else {
       clearInterval(timeInterval);
       h2El.textContent = "Game Over";
