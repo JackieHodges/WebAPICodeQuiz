@@ -4,7 +4,8 @@ var countEl = document.querySelector("#count");
 var startBtn = document.querySelector(".start-btn");
 var h1El = document.querySelector("h1");
 var h2El = document.querySelector("h2");
-var containerEl = document.querySelector("container");
+var highscoreEl = document.querySelector("#highscores");
+highscoreEl.hidden=true;
 var answersEl = document.querySelector("#answer-options");
 var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
@@ -12,6 +13,10 @@ var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
 var timeInterval;
 var questionIndex = 0;
+var initialInput = document.querySelector("#initials");
+var submitButton = document.querySelector("#submit");
+var userInitialSpan = document.querySelector("#user-initials");
+var userScoreSpan = document.querySelector("#user-score")
 var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
@@ -48,8 +53,9 @@ function setCounterText() {
       timeLeft--; 
 
       if (timeLeft === 0){
-        countEl.textContent = "0";
-        clearInterval(timeInterval);
+        // when timer hits zero, game is over and you get zero points
+        showHighscore();
+        
       }
 
     }, 1000);
@@ -72,38 +78,17 @@ function pageSetup(){
       newAnswerChoices.setAttribute("class","btn btn-secondary");
       newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
       newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
-      containerEl.append(newAnswerChoices);
+      answersEl.append(newAnswerChoices);
     }
 
     checkAnswer();
 
   }
 
-  function nextQuestion(){
-    if (questionIndex < 4){
-      console.log("the next question index is ", questionIndex);
-      // sets new question
-      h2El.textContent = questionsArray[questionIndex].question;  
-      for(var i = 0; i < questionsArray.length; i++){
-        // changes values for new question
-        document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
-      }
-    } else {
-      clearInterval(timeInterval);
-      h2El.textContent = "Game Over";
-      containerEl.hidden= true;
-      score = timeLeft;
-      countEl.textContent = timeLeft;
-      console.log("Your score is ", score);
-    }
-  }
-
   function checkAnswer(){
     var allButtons = document.querySelectorAll(".btn-secondary");
     allButtons.forEach(function(allButtons){
       allButtons.addEventListener("click", function(){
-        // var humanGuess = this.value;
-        // console.log(humanGuess);
         if(this.value === "correct"){
           console.log("correct");
           questionIndex++;
@@ -117,6 +102,56 @@ function pageSetup(){
       })
     })
   }
+
+  function nextQuestion(){
+    if (questionIndex < 4){
+      console.log("the next question index is ", questionIndex);
+      // sets new question
+      h2El.textContent = questionsArray[questionIndex].question;  
+      for(var i = 0; i < questionsArray.length; i++){
+        // changes values for new question
+        document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
+      }
+    } else {
+        showHighscore();
+    }
+  }
+
+function showHighscore(){
+  // set the page
+  clearInterval(timeInterval);
+  score = timeLeft;
+  answersEl.hidden= true;
+  highscoreEl.hidden= false;
+  h1El.hidden= false;
+  h1El.textContent = "Game Over";
+  h2El.textContent = ("Your score is " + score);
+  countEl.textContent = timeLeft;
+  renderLastSubmit();
+
+  // listener for initials and submit button
+  submitButton.addEventListener("click", function(event){
+    event.preventDefault();
+    var initials = initialInput.value;
+
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("score", score);
+    renderLastSubmit();
+  })
+}
+
+function renderLastSubmit(){
+  var initials = localStorage.getItem("initials");
+  var score = localStorage.getItem("score");
+
+  if (!initials) {
+    return;
+  }
+
+  userInitialSpan.textContent = initials;
+  userScoreSpan.textContent = score;
+
+}
 
   startBtn.addEventListener("click", function(){
     setCounterText();
