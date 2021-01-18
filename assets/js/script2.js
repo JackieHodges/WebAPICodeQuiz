@@ -18,25 +18,25 @@ var questionsArray = [
     question: "This is question 1",
     //questionsArray[0].choices[0]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 1"
+    values: ["correct", "incorrect", "incorrect", "incorrect"]
   },
   {
     //this question 2 is index 1
     question: "This is question 2",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 2"
+    values: ["correct", "incorrect", "incorrect", "incorrect"]
   },
   {
     //this question 3 is index 2
     question: "This is question 3",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 3"
+    values: ["correct", "incorrect", "incorrect", "incorrect"]
   },
   {
     //this question 4 is index 3
     question: "This is question 4",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 4"
+    values: ["correct", "incorrect", "incorrect", "incorrect"]
   }
 ]
 
@@ -69,7 +69,7 @@ function pageSetup(){
       // creates answer buttons
       newAnswerChoices = document.createElement("button");
       newAnswerChoices.setAttribute("class","btn btn-secondary");
-      newAnswerChoices.setAttribute("value", "incorrect");
+      newAnswerChoices.setAttribute("value", questionsArray[i].values[i]);
       newAnswerChoices.textContent= questionsArray[i].choices[i];
       containerEl.append(newAnswerChoices);
     }
