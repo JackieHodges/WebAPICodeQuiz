@@ -155,9 +155,12 @@ function renderLastSubmit(){
   if (!userData) {
     return;
   }
-
-  userInitialSpan.textContent = userData.initials;
-  userScoreSpan.textContent = userData.score;
+  var li = document.createElement("li");
+  li.textContent = userData.initials + " - " + userData.score;
+  var ul = document.querySelector("ul");
+  ul.appendChild(li);
+  // userInitialSpan.textContent = userData.initials;
+  // userScoreSpan.textContent = userData.score;
 
 }
 
