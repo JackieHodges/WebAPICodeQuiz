@@ -132,24 +132,31 @@ function showHighscore(){
   // listener for initials and submit button
   submitButton.addEventListener("click", function(event){
     event.preventDefault();
-    var initials = initialInput.value;
+    // var initials = initialInput.value;
 
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("score", score);
+    var user = {
+      initials: initialInput.value,
+      score: score
+
+    }
+
+    localStorage.setItem("user", JSON.stringify(user));
+    // localStorage.setItem("score", score);
     renderLastSubmit();
   })
 }
 
 function renderLastSubmit(){
-  var initials = localStorage.getItem("initials");
-  var score = localStorage.getItem("score");
-
-  if (!initials) {
+  // var initials = localStorage.getItem("initials");
+  // var score = localStorage.getItem("score");
+  var userData = JSON.parse(localStorage.getItem("user"));
+  
+  if (!userData) {
     return;
   }
 
-  userInitialSpan.textContent = initials;
-  userScoreSpan.textContent = score;
+  userInitialSpan.textContent = userData.initials;
+  userScoreSpan.textContent = userData.score;
 
 }
 
