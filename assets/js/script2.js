@@ -15,6 +15,7 @@ var timeInterval;
 var questionIndex = 0;
 var initialInput = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit");
+var restartButton = document.querySelector("#restart");
 var userInitialSpan = document.querySelector("#user-initials");
 var userScoreSpan = document.querySelector("#user-score")
 var questionsArray = [
@@ -129,26 +130,26 @@ function showHighscore(){
   countEl.textContent = timeLeft;
   renderLastSubmit();
 
-  // listener for initials and submit button
+  // listener for restart and submit button
   submitButton.addEventListener("click", function(event){
     event.preventDefault();
-    // var initials = initialInput.value;
 
     var user = {
       initials: initialInput.value,
       score: score
-
     }
 
     localStorage.setItem("user", JSON.stringify(user));
-    // localStorage.setItem("score", score);
+
     renderLastSubmit();
+  })
+
+  restartButton.addEventListener("click", function() {
+    document.location.href = "/Users/jackiehodges/ClassCode/Homework/WebAPICodeQuiz/index.html";
   })
 }
 
 function renderLastSubmit(){
-  // var initials = localStorage.getItem("initials");
-  // var score = localStorage.getItem("score");
   var userData = JSON.parse(localStorage.getItem("user"));
   
   if (!userData) {
