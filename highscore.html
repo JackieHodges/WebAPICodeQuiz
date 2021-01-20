@@ -15,10 +15,25 @@
             <!-- This is the link for highscores -->
             <a class="navbar-brand" href="./highscore.html">Highscores</a>
             <span class="navbar-text">
-                <!-- This is the timer -->
-                <div id="timer">Timer: <span id="count">75</span></div>
             </span>
         </div>
         </nav>
+    <main>
+        <container id="highscores">
+            <form>
+            <div id="inputIntialsHere">
+                <label for="initials">Enter initials here:</label>
+                <input type="text" name="initials" id="initials">
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+            <button type="restart" class="btn btn-primary" id="restart">Restart</button>
+            <div id="showPastScoresHere">
+                <h2>Highscores</h2>
+                <ul id="user-results"></ul>
+            </div>
+            </form>
+        </container>
+    </main>    
 </body>
+<script src="./assets/js/script2.js"></script>
 </html>

@@ -18,6 +18,8 @@ var submitButton = document.querySelector("#submit");
 var restartButton = document.querySelector("#restart");
 var userInitialSpan = document.querySelector("#user-initials");
 var userScoreSpan = document.querySelector("#user-score")
+var highScoresArray = [];
+var gameNumber = 0;
 var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
@@ -128,19 +130,12 @@ function showHighscore(){
   h1El.textContent = "Game Over";
   h2El.textContent = ("Your score is " + score);
   countEl.textContent = timeLeft;
-  renderLastSubmit();
+  // gameNumber++;
+  init();
 
   // listener for restart and submit button
   submitButton.addEventListener("click", function(event){
     event.preventDefault();
-
-    var user = {
-      initials: initialInput.value,
-      score: score
-    }
-
-    localStorage.setItem("user", JSON.stringify(user));
-
     renderLastSubmit();
   })
 
@@ -150,18 +145,32 @@ function showHighscore(){
 }
 
 function renderLastSubmit(){
-  var userData = JSON.parse(localStorage.getItem("user"));
-  
-  if (!userData) {
-    return;
+  for (var i = 0; i < gameNumber; i++){
+    var user = {
+      initials: initialInput.value,
+      score: score
+    }
+    highScoresArray.push(user.initials, user.score);
+    var li = document.createElement("li");
+    li.textContent = highScoresArray;
+    var ul = document.querySelector("ul");
+    ul.appendChild(li);
   }
-  var li = document.createElement("li");
-  li.textContent = userData.initials + " - " + userData.score;
-  var ul = document.querySelector("ul");
-  ul.appendChild(li);
-  // userInitialSpan.textContent = userData.initials;
-  // userScoreSpan.textContent = userData.score;
+  gameNumber++;
+}
 
+function init(){
+  var storedScores = JSON.parse(localStorage.getItem("highScoresArray"));
+ 
+  if (storedScores !== null) {
+    storedScores = highScoresArray;
+  }
+
+  renderLastSubmit();
+}
+
+function storeScores(){
+  localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
 }
 
   startBtn.addEventListener("click", function(){
