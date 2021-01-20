@@ -77,7 +77,7 @@ function pageSetup(){
       // creates answer buttons
       newAnswerChoices = document.createElement("button");
       newLine = document.createElement("br");
-      newAnswerChoices.setAttribute("class","btn btn-secondary");
+      newAnswerChoices.setAttribute("class","btn btn-outline-secondary");
       newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
       newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
       answersEl.append(newAnswerChoices);
@@ -89,7 +89,7 @@ function pageSetup(){
 
 function checkAnswer(){
   // resultNotification.innerHTML="";
-  var allButtons = document.querySelectorAll(".btn-secondary");
+  var allButtons = document.querySelectorAll(".btn-outline-secondary");
   // selects all buttons on the page and applies event listener to each
   allButtons.forEach(function(allButtons){
     allButtons.addEventListener("click", function(){
@@ -118,9 +118,9 @@ function nextQuestion(){
 
     for(var i = 0; i < questionsArray.length; i++){
       // changes answer choices
-      document.getElementsByClassName("btn-secondary")[i].textContent= questionsArray[questionIndex].choices[i];
+      document.getElementsByClassName("btn-outline-secondary")[i].textContent= questionsArray[questionIndex].choices[i];
       // changes values of correct/incorrect for new question set in question array
-      document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
+      document.getElementsByClassName("btn-outline-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
     }
 
   } else {
