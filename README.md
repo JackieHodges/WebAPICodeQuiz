@@ -32,3 +32,9 @@ Otherwise, the github page can be found here: [Web API Code Quiz Webpage](https:
 Below are screenshots of the page:
 
 ![screenshot 1](assets/images/screenshot1.png)
+
+![screenshot 2](assets/images/screenshot2.png)
+
+![screenshot 3](assets/images/screenshot3.png)
+
+![screenshot 4](assets/images/screenshot4.png)
