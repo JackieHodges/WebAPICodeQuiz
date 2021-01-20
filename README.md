@@ -18,6 +18,7 @@ The styling was minimal due to the use of bootstrap.
 
 * [Installation](#installation)
 * [Usage](#usage)
+* [Credits](#credits)
 
 
 ## Installation
@@ -38,3 +39,9 @@ Below are screenshots of the page:
 ![screenshot 3](assets/images/screenshot3.png)
 
 ![screenshot 4](assets/images/screenshot4.png)
+
+
+## Credits
+
+The question and answer choices used in this quiz were taken from w3schools.com. Link can be found here: [w3Schools JavaScript Quiz](https://www.w3schools.com/js/js_quiz.asp)
+
