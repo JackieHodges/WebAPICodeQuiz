@@ -4,40 +4,48 @@ var countEl = document.querySelector("#count");
 var startBtn = document.querySelector(".start-btn");
 var h1El = document.querySelector("h1");
 var h2El = document.querySelector("h2");
-var containerEl = document.querySelector("container");
+var highscoreEl = document.querySelector("#highscores");
+highscoreEl.hidden=true;
 var answersEl = document.querySelector("#answer-options");
 var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
 var timeInterval;
-var questionNumber = 1;
 var questionIndex = 0;
+var initialInput = document.querySelector("#initials");
+var submitButton = document.querySelector("#submit");
+var restartButton = document.querySelector("#restart");
+var userInitialSpan = document.querySelector("#user-initials");
+var userScoreSpan = document.querySelector("#user-score");
+var userResults = document.querySelector("#user-results");
+var highScoresArray = [];
+var gameNumber = 0;
 var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
     question: "This is question 1",
     //questionsArray[0].choices[0]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 1"
+    values: ["correct", "incorrect", "incorrect", "incorrect"]
   },
   {
     //this question 2 is index 1
     question: "This is question 2",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 2"
+    values: ["incorrect", "correct", "incorrect", "incorrect"]
   },
   {
     //this question 3 is index 2
     question: "This is question 3",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 3"
+    values: ["incorrect", "incorrect", "correct", "incorrect"]
   },
   {
     //this question 4 is index 3
     question: "This is question 4",
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
-    answer: "this is answer 4"
+    values: ["incorrect", "incorrect", "incorrect", "correct"]
   }
 ]
 
@@ -49,113 +57,125 @@ function setCounterText() {
       timeLeft--; 
 
       if (timeLeft === 0){
-        countEl.textContent = "0";
-        clearInterval(timeInterval);
+        // when timer hits zero, game is over and you get zero points
+        showHighscore();
+        
       }
 
     }, 1000);
 }
 
+// this sets up the page to be created 
 function pageSetup(){
-  // removes h1
-  h1El.outerHTML = "";
-  // removes button
-  startBtn.outerHTML = "";
+    // hides welcome html and start button
+    h1El.hidden = true;
+    startBtn.hidden = true;
 
-  // this adds answer buttons into the HTML
-  answerOne.innerHTML = "<button type='button' class='btn btn-secondary btn-answerOne incorrect'></button>";
-  answerTwo.innerHTML = "<button type='button' class='btn btn-secondary btn-answerTwo incorrect'></button>";
-  answerThree.innerHTML = "<button type='button' class='btn btn-secondary btn-answerThree incorrect'></button>";
-  answerFour.innerHTML = "<button type='button' class='btn btn-secondary btn-answerFour incorrect'></button>";
+    // sets question
+    h2El.textContent = questionsArray[questionIndex].question;   
 
-  //because the buttons will now be created, we can name them here
-  answerOneButton = document.querySelector(".btn-answerOne");
-  answerTwoButton = document.querySelector(".btn-answerTwo");
-  answerThreeButton =  document.querySelector(".btn-answerThree");
-  answerFourButton = document.querySelector(".btn-answerFour");
-}
+    // this adds answer buttons into the HTML
+    for(var i = 0; i < questionsArray.length; i++){
+      // creates answer buttons
+      newAnswerChoices = document.createElement("button");
+      newLine = document.createElement("br");
+      newAnswerChoices.setAttribute("class","btn btn-secondary");
+      newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
+      newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
+      answersEl.append(newAnswerChoices);
+    }
 
-// this is the first question to be asked
-function askQuestion(){
-  console.log("This is question number " + questionNumber);
-
-  if (questionNumber < questionsArray.length){
-    
-    // changes h2 text to first question
-    h2El.textContent = questionsArray[questionIndex].question;
-
-    // this adds question text from array into button htmls
-    answerOneButton.textContent = questionsArray[questionIndex].choices[0];
-    answerTwoButton.textContent = questionsArray[questionIndex].choices[1];
-    answerThreeButton.textContent = questionsArray[questionIndex].choices[2];
-    answerFourButton.textContent = questionsArray[questionIndex].choices[3];
-    
     checkAnswer();
 
-  } else {
-    containerEl.outerHTML="";
-    clearInterval(timeInterval);
-    score = timeLeft;
-    console.log("congrats, you had "+ score + " points!"); 
+  }
+
+  function checkAnswer(){
+    var allButtons = document.querySelectorAll(".btn-secondary");
+    allButtons.forEach(function(allButtons){
+      allButtons.addEventListener("click", function(){
+        if(this.value === "correct"){
+          console.log("correct");
+          questionIndex++;
+          nextQuestion();
+        } else {
+          console.log("incorrect");
+          timeLeft=timeLeft-10;
+          questionIndex++;
+          nextQuestion();
+        }
+      })
+    })
+  }
+
+  function nextQuestion(){
+    if (questionIndex < 4){
+      console.log("the next question index is ", questionIndex);
+      // sets new question
+      h2El.textContent = questionsArray[questionIndex].question;  
+      for(var i = 0; i < questionsArray.length; i++){
+        // changes values for new question
+        document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
+      }
+    } else {
+        showHighscore();
+    }
+  }
+
+function showHighscore(){
+  // set the page
+  clearInterval(timeInterval);
+  score = timeLeft;
+  answersEl.hidden= true;
+  highscoreEl.hidden= false;
+  h1El.hidden= false;
+  h1El.textContent = "Game Over";
+  h2El.textContent = ("Your score is " + score);
+  countEl.textContent = timeLeft;
+  init();
+
+  // listener for restart and submit button
+  submitButton.addEventListener("click", function(event){
+    event.preventDefault();
+    var user = {
+      initials: initialInput.value,
+      score: score
+    }
+    highScoresArray.push(user.initials, user.score);
+    console.log("array length is ", highScoresArray.length);
+    storeScores();
+    renderLastSubmit();
+  })
+
+  restartButton.addEventListener("click", function() {
+    document.location.href = "/Users/jackiehodges/ClassCode/Homework/WebAPICodeQuiz/index.html";
+  })
+}
+
+function renderLastSubmit(){
+  userResults.innerHTML = "";
+  for (var i = 0; i < highScoresArray.length; i=i+2){
+    var li = document.createElement("li");
+    li.textContent = highScoresArray[i] + " - " + highScoresArray[i+1];
+    var ul = document.querySelector("ul");
+    ul.appendChild(li);
   }
 }
 
-function checkAnswer(){
-  // listener for each button
-  answersEl.addEventListener("click", function(){
-    if (this.textContent == questionsArray[questionIndex].answer){
-      youAreCorrect();
-    } else {
-      youAreWrong();
-    }
-  });
+function init(){
+  var storedScores = JSON.parse(localStorage.getItem("highScoresArray"));
+ 
+  if (storedScores !== null) {
+    highScoresArray = storedScores;
+  }
 
-  // answerTwoButton.addEventListener("click", function(){
-  //   if (document.querySelector(".btn-answerTwo").textContent == questionsArray[questionIndex].answer){
-  //     youAreCorrect();
-  //   } else {
-  //     youAreWrong();
-  //   }
-  // });
-
-  // answerThreeButton.addEventListener("click", function(){
-  //   if (document.querySelector(".btn-answerThree").textContent == questionsArray[questionIndex].answer){
-  //     youAreCorrect();
-  //   } else {
-  //     youAreWrong();
-  //   }
-  // });
-
-  // answerFourButton.addEventListener("click", function(){
-  //   if (document.querySelector(".btn-answerFour").textContent == questionsArray[questionIndex].answer){
-  //     youAreCorrect();
-  //   } else {
-  //     youAreWrong();
-  //   }
-  // });
-
+  renderLastSubmit();
 }
 
-// function for when correct answer is clicked
-function youAreCorrect (){
-  console.log("Correct");
-  questionNumber++;
-  questionIndex++;
-  askQuestion();
+function storeScores(){
+  localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
 }
 
-// function for when wrong answer is clicked
-function youAreWrong (){
-  console.log("Wrong");
-  timeLeft = timeLeft-10;
-  questionNumber++;
-  questionIndex++;
-  askQuestion();
-}
-
-// when the start quiz button is clicked, the program will run
-startBtn.addEventListener("click", function() {
+  startBtn.addEventListener("click", function(){
     setCounterText();
     pageSetup();
-    askQuestion();
-});
+  })
