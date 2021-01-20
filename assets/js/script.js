@@ -11,6 +11,7 @@ var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
+var resultNotification = document.querySelector("#result-notification");
 var timeInterval;
 var questionIndex = 0;
 var initialInput = document.querySelector("#initials");
@@ -59,7 +60,7 @@ function setCounterText() {
         // when timer hits zero, game is over and you get zero points
         showHighscore();
       }
-      
+
     }, 1000);
 }
 
@@ -70,7 +71,7 @@ function pageSetup(){
     startBtn.hidden = true;
 
     // sets question
-    h2El.textContent = questionsArray[questionIndex].question;   
+    h2El.textContent = questionsArray[questionIndex].question; 
 
     // this adds answer buttons into the HTML
     for(var i = 0; i < questionsArray.length; i++){
@@ -87,15 +88,18 @@ function pageSetup(){
 }
 
 function checkAnswer(){
+  // resultNotification.innerHTML="";
   var allButtons = document.querySelectorAll(".btn-secondary");
   // selects all buttons on the page and applies event listener to each
   allButtons.forEach(function(allButtons){
     allButtons.addEventListener("click", function(){
       if(this.value === "correct"){
+        alert("Correct!");
         console.log("correct");
         questionIndex++;
         nextQuestion();
       } else {
+        alert("Incorrect!");
         console.log("incorrect");
         // 10 second penalty for choosing wrong
         timeLeft=timeLeft-10;
@@ -106,7 +110,7 @@ function checkAnswer(){
   })
 }
 
-function nextQuestion(){
+function nextQuestion(){ 
   // checks to ensure questions are remaining 
   if (questionIndex < 4){
     // sets new question
