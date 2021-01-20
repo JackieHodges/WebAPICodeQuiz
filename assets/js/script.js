@@ -131,6 +131,8 @@ function nextQuestion(){
 }
 
 function showHighscore(){
+  // stop the timer
+  clearInterval(timeInterval);
   // set the page
   startBtn.hidden = true;
   score = timeLeft;
