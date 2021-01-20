@@ -11,7 +11,6 @@ var answerOne = document.querySelector("#answer-one");
 var answerTwo = document.querySelector("#answer-two");
 var answerThree = document.querySelector("#answer-three");
 var answerFour = document.querySelector("#answer-four");
-var resultNotification = document.querySelector("#result-notification");
 var timeInterval;
 var questionIndex = 0;
 var initialInput = document.querySelector("#initials");
@@ -25,27 +24,27 @@ var gameNumber = 0;
 var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
-    question: "This is question 1",
+    question: "Which event occurs when the user clicks on an HTML element?",
     //questionsArray[0].choices[i]
-    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    choices: ["onClick", "onMouseClick", "onChange", "onMouseOver"],
     values: ["correct", "incorrect", "incorrect", "incorrect"]
   },
   {
     //this question 2 is index 1
-    question: "This is question 2",
-    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    question: "How do you declare a JavaScript variable?",
+    choices: ["v carName;", "var carName;", "variable carName;", "carName;"],
     values: ["incorrect", "correct", "incorrect", "incorrect"]
   },
   {
     //this question 3 is index 2
-    question: "This is question 3",
-    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    question: "Which operator is used to assign a value to a variable?",
+    choices: ["-", "x", "=", "*"],
     values: ["incorrect", "incorrect", "correct", "incorrect"]
   },
   {
     //this question 4 is index 3
-    question: "This is question 4",
-    choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
+    question: "How does a FOR loop start?",
+    choices: ["for (i = 0; i <= 5)", "for i = 1 to 5", "for (i <= 5; i++)", "for (i = 0; i <= 5; i++)"],
     values: ["incorrect", "incorrect", "incorrect", "correct"]
   }
 ]
@@ -82,6 +81,7 @@ function pageSetup(){
       newAnswerChoices.setAttribute("value", questionsArray[questionIndex].values[i]);
       newAnswerChoices.textContent= questionsArray[questionIndex].choices[i];
       answersEl.append(newAnswerChoices);
+      answersEl.append(newLine);
     }
 
     checkAnswer();
@@ -117,6 +117,8 @@ function nextQuestion(){
     h2El.textContent = questionsArray[questionIndex].question; 
 
     for(var i = 0; i < questionsArray.length; i++){
+      // changes answer choices
+      document.getElementsByClassName("btn-secondary")[i].textContent= questionsArray[questionIndex].choices[i];
       // changes values of correct/incorrect for new question set in question array
       document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
     }
@@ -140,7 +142,7 @@ function showHighscore(){
   // display any stored scores (if available)
   init();
 
-  // listener for submit button
+  // listener for submit button on highscore page
   submitButton.addEventListener("click", function(event){
     event.preventDefault();
     var user = {
