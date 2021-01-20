@@ -25,7 +25,7 @@ var questionsArray = [
   {
     //this question one is index 0, questionsArray[0].question;
     question: "This is question 1",
-    //questionsArray[0].choices[0]
+    //questionsArray[0].choices[i]
     choices: ["this is answer 1", "this is answer 2", "this is answer 3", "this is answer 4"],
     values: ["correct", "incorrect", "incorrect", "incorrect"]
   },
@@ -50,8 +50,7 @@ var questionsArray = [
 ]
 
 // this is the timer
-function setCounterText() {
-  
+function setCounterText() {  
     timeInterval = setInterval(function() {
       countEl.textContent = timeLeft;
       timeLeft--; 
@@ -59,9 +58,8 @@ function setCounterText() {
       if (timeLeft === 0){
         // when timer hits zero, game is over and you get zero points
         showHighscore();
-        
       }
-
+      
     }, 1000);
 }
 
@@ -86,40 +84,44 @@ function pageSetup(){
     }
 
     checkAnswer();
+}
 
-  }
-
-  function checkAnswer(){
-    var allButtons = document.querySelectorAll(".btn-secondary");
-    allButtons.forEach(function(allButtons){
-      allButtons.addEventListener("click", function(){
-        if(this.value === "correct"){
-          console.log("correct");
-          questionIndex++;
-          nextQuestion();
-        } else {
-          console.log("incorrect");
-          timeLeft=timeLeft-10;
-          questionIndex++;
-          nextQuestion();
-        }
-      })
-    })
-  }
-
-  function nextQuestion(){
-    if (questionIndex < 4){
-      console.log("the next question index is ", questionIndex);
-      // sets new question
-      h2El.textContent = questionsArray[questionIndex].question;  
-      for(var i = 0; i < questionsArray.length; i++){
-        // changes values for new question
-        document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
+function checkAnswer(){
+  var allButtons = document.querySelectorAll(".btn-secondary");
+  // selects all buttons on the page and applies event listener to each
+  allButtons.forEach(function(allButtons){
+    allButtons.addEventListener("click", function(){
+      if(this.value === "correct"){
+        console.log("correct");
+        questionIndex++;
+        nextQuestion();
+      } else {
+        console.log("incorrect");
+        // 10 second penalty for choosing wrong
+        timeLeft=timeLeft-10;
+        questionIndex++;
+        nextQuestion();
       }
-    } else {
-        showHighscore();
+    })
+  })
+}
+
+function nextQuestion(){
+  // checks to ensure questions are remaining 
+  if (questionIndex < 4){
+    // sets new question
+    h2El.textContent = questionsArray[questionIndex].question; 
+
+    for(var i = 0; i < questionsArray.length; i++){
+      // changes values of correct/incorrect for new question set in question array
+      document.getElementsByClassName("btn-secondary")[i].setAttribute("value", questionsArray[questionIndex].values[i]);
     }
+
+  } else {
+      // no questions are remaining, show highscore page.
+      showHighscore();
   }
+}
 
 function showHighscore(){
   // set the page
@@ -131,28 +133,33 @@ function showHighscore(){
   h1El.textContent = "Game Over";
   h2El.textContent = ("Your score is " + score);
   countEl.textContent = timeLeft;
+  // display any stored scores (if available)
   init();
 
-  // listener for restart and submit button
+  // listener for submit button
   submitButton.addEventListener("click", function(event){
     event.preventDefault();
     var user = {
       initials: initialInput.value,
       score: score
     }
+    // add entered data to highscore array
     highScoresArray.push(user.initials, user.score);
-    console.log("array length is ", highScoresArray.length);
     storeScores();
     renderLastSubmit();
   })
 
+  // listener for resetart button
   restartButton.addEventListener("click", function() {
     document.location.href = "/Users/jackiehodges/ClassCode/Homework/WebAPICodeQuiz/index.html";
   })
 }
 
+// write stored data into list
 function renderLastSubmit(){
+  // clear the previous list to show new list
   userResults.innerHTML = "";
+  // each data from the user is 2 items
   for (var i = 0; i < highScoresArray.length; i=i+2){
     var li = document.createElement("li");
     li.textContent = highScoresArray[i] + " - " + highScoresArray[i+1];
@@ -163,11 +170,9 @@ function renderLastSubmit(){
 
 function init(){
   var storedScores = JSON.parse(localStorage.getItem("highScoresArray"));
- 
   if (storedScores !== null) {
     highScoresArray = storedScores;
   }
-
   renderLastSubmit();
 }
 
@@ -175,7 +180,8 @@ function storeScores(){
   localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
 }
 
-  startBtn.addEventListener("click", function(){
-    setCounterText();
-    pageSetup();
-  })
+// start button listener for beginning of game
+startBtn.addEventListener("click", function(){
+  setCounterText();
+  pageSetup();
+})
