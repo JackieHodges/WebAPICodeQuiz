@@ -132,7 +132,7 @@ function nextQuestion(){
 
 function showHighscore(){
   // set the page
-  clearInterval(timeInterval);
+  startBtn.hidden = true;
   score = timeLeft;
   answersEl.hidden= true;
   highscoreEl.hidden= false;
