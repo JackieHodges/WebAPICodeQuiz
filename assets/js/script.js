@@ -16,6 +16,7 @@ var questionIndex = 0;
 var initialInput = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit");
 var restartButton = document.querySelector("#restart");
+var clearButton = document.querySelector("#clear");
 var userInitialSpan = document.querySelector("#user-initials");
 var userScoreSpan = document.querySelector("#user-score");
 var userResults = document.querySelector("#user-results");
@@ -158,6 +159,13 @@ function showHighscore(){
   // listener for resetart button
   restartButton.addEventListener("click", function() {
     document.location.href = "/Users/jackiehodges/ClassCode/Homework/WebAPICodeQuiz/index.html";
+  })
+
+  // listener for clear scores button
+  clearButton.addEventListener("click", function() {
+    highScoresArray = [];
+    storeScores();
+    renderLastSubmit();
   })
 }
 

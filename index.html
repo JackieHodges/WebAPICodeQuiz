@@ -13,7 +13,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <!-- This is the link for highscores -->
-            <a class="navbar-brand" href="javascript:showHighscore()">Highscores</a>
+            <a class="navbar-brand" href="javascript:showHighscore(timeLeft=0)">Highscores</a>
             <span class="navbar-text">
                 <!-- This is the timer -->
                 <div id="timer">Timer: <span id="count">75</span></div>
@@ -39,7 +39,8 @@
                             <input type="text" name="initials" id="initials">
                         </div>
                         <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-                        <button type="restart" class="btn btn-primary" id="restart">Restart</button>
+                        <button type="button" class="btn btn-primary" id="restart">Restart</button>
+                        <button type="button" class="btn btn-primary" id="clear">Clear Scores</button>
                         <div id="showPastScoresHere">
                             <h2>Highscores</h2>
                             <ul id="user-results"></ul>
