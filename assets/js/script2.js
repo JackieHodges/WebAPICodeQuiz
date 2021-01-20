@@ -17,7 +17,8 @@ var initialInput = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit");
 var restartButton = document.querySelector("#restart");
 var userInitialSpan = document.querySelector("#user-initials");
-var userScoreSpan = document.querySelector("#user-score")
+var userScoreSpan = document.querySelector("#user-score");
+var userResults = document.querySelector("#user-results");
 var highScoresArray = [];
 var gameNumber = 0;
 var questionsArray = [
@@ -130,12 +131,18 @@ function showHighscore(){
   h1El.textContent = "Game Over";
   h2El.textContent = ("Your score is " + score);
   countEl.textContent = timeLeft;
-  // gameNumber++;
   init();
 
   // listener for restart and submit button
   submitButton.addEventListener("click", function(event){
     event.preventDefault();
+    var user = {
+      initials: initialInput.value,
+      score: score
+    }
+    highScoresArray.push(user.initials, user.score);
+    console.log("array length is ", highScoresArray.length);
+    storeScores();
     renderLastSubmit();
   })
 
@@ -145,25 +152,20 @@ function showHighscore(){
 }
 
 function renderLastSubmit(){
-  for (var i = 0; i < gameNumber; i++){
-    var user = {
-      initials: initialInput.value,
-      score: score
-    }
-    highScoresArray.push(user.initials, user.score);
+  userResults.innerHTML = "";
+  for (var i = 0; i < highScoresArray.length; i=i+2){
     var li = document.createElement("li");
-    li.textContent = highScoresArray;
+    li.textContent = highScoresArray[i] + " - " + highScoresArray[i+1];
     var ul = document.querySelector("ul");
     ul.appendChild(li);
   }
-  gameNumber++;
 }
 
 function init(){
   var storedScores = JSON.parse(localStorage.getItem("highScoresArray"));
  
   if (storedScores !== null) {
-    storedScores = highScoresArray;
+    highScoresArray = storedScores;
   }
 
   renderLastSubmit();
