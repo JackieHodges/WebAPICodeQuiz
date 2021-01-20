@@ -158,7 +158,8 @@ function showHighscore(){
 
   // listener for resetart button
   restartButton.addEventListener("click", function() {
-    document.href = "jackiehodges.github.io/WebAPICodeQuiz/";
+    // refresh page to start over
+    window.location.reload();
   })
 
   // listener for clear scores button
